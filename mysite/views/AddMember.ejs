@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add User Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a class="active" href="#membersRouter">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+    <% if(haveSubscriptionsCreate == true) {%>
+      <h2>Members</h2>
+      <div class = "second">
+        <a href="/membersRouter/allMembers/false/0/0/0/<%= user %>">All Members</a>
+        <a class ="active" href="#addMember">Add Member</a> 
+      </div>
+      <br>
+     
+      <h2>Add New Member</h2>
+      <form action ="/membersRouter/addMemberToDB/<%= user %>" method = "GET">
+        Name: <input type="text" name= "name"/><br>
+        Email: <input type="text" name="email" /><br>
+        City: <input type="text" name="city"/><br>
+        <input type = "submit" value="Save" />
+        <input type= "button" value= "Cancel" onclick="window.location.href='/membersRouter/allMembers/false/0/0/0/<%= user %>';" />
+      </form>
+     
+    <%}else{%>
+      <h3>You dont have permission to Add Members</h3>
+    <%}%>
+    
+
+  </body>
+</html>

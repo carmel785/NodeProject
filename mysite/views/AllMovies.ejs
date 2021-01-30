@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Movies Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+    <script>
+      function search()
+      {
+        var find = document.getElementById('result').value
+        location.replace("/moviesRouter/allMovies/"+find+'/<%= user %>')
+      }
+    </script>
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a class="active">Movies</a></li>
+      <li><a href="/membersRouter/<%= user %>">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+    <h2>Movies</h2>
+    <div class = "second">
+      <a class ="active" href= "/moviesRouter/allMovies/<%= user %>">All Movies</a>
+      <a href="/moviesRouter/addMovie/<%= user %>">Add Movie</a> 
+    </div>
+    <br>
+    <% if(haveViews == true) { %>
+
+      Find Movie: <input type = "text" id = "result" name = "search"/>
+      <input type = "button" value = "Find" id ="find" onclick= "search()"/>
+      <br> <br>
+      <% if(typeof results != "undefined"){ %>
+        <% movies = results %>
+      <%}else{%>
+        <% movies = movies.data %>
+        <% } %>
+  
+      <% movies.forEach(m => { %>
+  
+        <div style="border-style: solid; width: 30%; ">
+        <h3><%= m.name %> , <%= m.premiered.slice(0,4) %></h3>
+        <p>genres: <%= m.genres %></p>
+        <img style = "width: 15%;" src="<%= m.image.medium %>">
+        <div style="border-style: solid; width: 30%;">
+          Subscriptions Watched
+        </div>
+        <%if(haveUpdateMovie == true){%>
+          <input type = "button" onclick="window.location.href='/moviesRouter/editMovie/<%= m.name %>/<%= user %>';" value = "Edit" >
+        <%}%>
+        <%if(haveDeleteMovie == true){%>
+          <input type="button" onclick="window.location.href='/<%= user %>';" value= "Delete"> 
+        <%}%>
+        </div>
+      <br>
+      <% }) %>
+  
+  
+    <%}else{%>
+      <h3>You dont have permission to see Movies List</h3>
+    <%}%>
+
+
+
+
+
+  </body>
+</html>

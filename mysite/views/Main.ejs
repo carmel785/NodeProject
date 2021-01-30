@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a href="/membersRouter/<%= user %>">Subscriptions</a></li>
+      <% if(user == "Carmel785@gmail.com") {%>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+        <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+  </body>
+</html>

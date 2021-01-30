@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add User Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+    <script>
+      function subFunc(id) {
+        var viewS =  document.getElementById("ViewS");
+        var crud = document.getElementById(id.name);
+        if (crud.checked == true){
+          viewS.checked = true
+        }
+      }
+      function movFunc(id) {
+        var viewS =  document.getElementById("viewM");
+        var crud = document.getElementById(id.name);
+        if (crud.checked == true){
+          viewS.checked = true
+        }
+      }
+      </script>
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a href="/membersRouter/<%= user %>">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+    <h2>Users</h2>
+    <div class = "second">
+      <a href="/usersRouter/users/<%= user %>">All Users</a>
+      <a class = "active">Add Users</a> 
+    </div><br><br>
+    <form action = "/usersRouter/userToDB/<%= user %>" method="POST">
+      First Name : <input type = "text" name = "fname"> <br>
+      Last Name :  <input type = "text" name = "lname"> <br>
+      UserName :   <input type = "text" name = "user"> <br>
+      Session Time Out(Minutes) : <input type = "text" name = "sessionTimeOut"> <br><br>
+      Permissons : <br>
+      View Subscriptions : <input type = "checkbox" name = "ViewS" id = "ViewS"><br>
+      Create Subscriptions : <input type = "checkbox" name = "createS" id = "createS" onclick="subFunc(createS)"><br>
+      Delete Subscriptions : <input type = "checkbox" name = "deleteS" id = "deleteS" onclick="subFunc(deleteS)"><br>
+      Update Subscription : <input type = "checkbox" name = "updateS" id = "updateS" onclick="subFunc(updateS)"><br>
+      View Movies : <input type = "checkbox" name = "viewM" id = "viewM" ><br>
+      Create Movies : <input type = "checkbox" name = "createM" id = "createM" onclick="movFunc(createM)"><br>
+      Delete Movies : <input type = "checkbox" name = "deleteM" id = "deleteM" onclick="movFunc(deleteM)"><br>
+      Update Movie : <input type = "checkbox" name = "updateM" id = "updateM" onclick="movFunc(updateM)"><br><br>
+      <input type = "submit" value = "Save" >
+      <input type="button" onclick="window.location.href='/usersRouter/<%= user %>';" value= "Cancel"> 
+    </form>
+
+    </form>
+
+    
+
+
+  </body>
+</html>

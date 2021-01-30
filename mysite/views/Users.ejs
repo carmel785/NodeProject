@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User's Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a href="/membersRouter/<%= user %>">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+    <h2>Users</h2>
+    <div class = "second">
+      <a class = "active" >All Users</a>
+      <a href="/usersRouter/addUsers/<%= user%>">Add Users</a> 
+    </div>
+
+  <form>
+    <br>
+    <% details.forEach(function(e) {%>
+      <div class = "details" >
+        Name: <%= e.fullName %> <br>
+        User Name: <%= e.userName  %> <br>
+        Session Time Out(Minutes): <%= e.sessionTimeOut %> <br>
+        Created Date: <%= e.created_date %> <br>
+        Permissions: <%= e.permissions %> <br><br>
+        <input type = "button" value = "Edit" onclick="window.location.href='/usersRouter/editUser/<%= e.userName %>/<%= e.fullName %>/<%= user %>';">
+        <input type = "button" value = "Delete" onclick="window.location.href='/usersRouter/users/delete/<%= e.userName %>/<%= user %>';">
+      </div>
+      <br><br>
+    <%}) %>
+      
+  </form>
+    
+
+
+  </body>
+</html>

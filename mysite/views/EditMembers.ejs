@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Members Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a class="active" href="#membersRouter">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+    <h2>Members</h2>
+    <h2>Edit Members: <%= name %></h2>
+    <br>
+    <form action = "/membersRouter/editMemberUpdate/<%= name %>/<%= user %>" method="GET">
+      Name: <input type= "text" name= "name"/><br>
+      Email: <input type= "text" name= "email"/><br>
+      City: <input type= "text" name= "city"/><br>
+      <input type= "submit" value= "Update" />
+      <input type= "button" value= "Cancel" onclick="window.location.href='/membersRouter/allMembers/false/0/0/0/<%= user %>';" />
+    </form>
+    
+
+  </body>
+</html>

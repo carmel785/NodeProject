@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add User Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a class="active">Movies</a></li>
+      <li><a href="/membersRouter/<%= user %>">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+    <h2>Movies</h2>
+    <div class = "second">
+      <a href= "/moviesRouter/allMovies/<%= user %>">All Movies</a>
+      <a class ="active" href="#addMovie">Add Movie</a> 
+    </div>
+    <br>
+    <% if(haveCreateMovie == true){ %>
+      <form action = "/moviesRouter/addMovieToDB/<%= user %>" method="GET">
+        Name: <input type = "text" name = "name" /><br>
+        Genres: <input type = "text" name = "genres" /><br>
+        image url: <input type = "text" name = "image" /><br>
+        premiered: <input type = "text" name = "premiered" /><br><br>
+        <input type = "Submit" value = "Save" >
+        <input type="button" onclick="window.location.href='/moviesRouter/allMovies/<%= user %>';" value= "Cancel"> 
+      </form>    
+    <%}else{%>
+      <h3>You dont have permission to Add A Movie</h3>
+    <%}%>
+
+   
+  </body>
+</html>

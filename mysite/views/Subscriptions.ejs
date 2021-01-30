@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subscriptions Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a class="active" href="#Subscriptions">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+    <% if(haveSubscriptionsView == true) {%>
+    <h2>Members</h2>
+    <div class = "second">
+      <a href="/membersRouter/allMembers/false/0/0/0/<%= user%>" >All Members</a>
+      <a href="/membersRouter/addMember/<%= user%>">Add Members</a> 
+    </div>
+    <%}else{%>
+      <h3>You dont have permissions to see Subscriptions List</h3>
+    <%}%>
+
+  </body>
+</html>

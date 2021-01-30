@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Members Page</title>
+    <link rel="stylesheet" href="/stylesheets/navBar.css">
+  </head>
+  <body>
+    <h1> Movies - Subscriptions Web Site </h1>
+    <ul class="main">
+      <li><a href="/moviesRouter/<%= user %>">Movies</a></li>
+      <li><a class="active" href="#membersRouter/<%= user %>">Subscriptions</a></li>
+      <%if(user == "Carmel785@gmail.com"){ %>
+        <li><a href="/usersRouter/<%= user %>">User Management</a></li>
+      <%}%>
+      <li><a href="/">Log Out</a></li>
+    </ul>
+
+    <h2>Members</h2>
+    <div class = "second">
+      <a class ="active">All Members</a>
+      <a href="/membersRouter/addMember/<%= user %>">Add Member</a> 
+    </div>
+    <br>
+    
+    <form action = "/membersRouter/editMember/<%= user %>" method="GET">
+      <br>
+      <% members.forEach(function(e) {%>
+        <div class = "details" >
+          <h3> <%= e.Name %> </h3>
+
+         Email: <%= e.Email %> <br>
+         City: <%= e.City %>
+         <br>
+         <% if(haveSubscriptionsUpdate == true) {%>
+          <input type = "button" value = "Edit" onclick="window.location.href='/membersRouter/editMember/<%= e.Name %>/<%= user %>';">
+        <%}%>
+        <% if(haveSubscriptionsDelete == true) {%>
+          <input type = "button" value = "Delete" onclick="window.location.href='/membersRouter/deleteMember/<%= e.Name %>/<%= user %>';">          
+        <%}%>
+
+        </form>
+    
+        <br><br>
+          <div class = "members">
+            <h4>Movie Watched</h4>
+            <% var membersStr = JSON.stringify(members) %>
+
+            <% if(typeof subscriptions != 'string') {%>
+                  <% subscriptions = JSON.stringify(subscriptions) %>
+              <%} %>
+
+              <input type = "button" value="Subscribe to new Movie" id="<%= e.Name %>" onclick ="window.location.href='/membersRouter/allMembers/true/<%= membersStr %>/<%= e.Name %>/<%= subscriptions %>/<%= user %>';">
+            <% if(typeof watchListMembers != "undefined") { %>
+                <% var flag = watchListMembers.some(m=> m == e.Name) %> 
+                <% if(flag == true) {%>
+                  <p>Add a new Movie</p>
+                  <form action = "/membersRouter/subscribe/<%= e._id %>/<%= user %>" method="GET">
+                  <select name="movies" id="movies">
+                    <%if(moviesList != ""){ %>
+                        <% moviesList.forEach(movList=> { %>
+                          <% movList.forEach(m=> { %>
+                             <option value= "<%= m.name %>"><%= m.name %></option>
+                           <%})%>
+                        <%})%>
+                    <%}else{%>
+                        <%movies.forEach(m=>{ %>
+                          <option value= "<%= m.name %>"><%= m.name %></option>
+                        <%})%>
+                    <%}%>
+
+                        
+                         </select>
+                         <input type="date" name="date"/><br>
+                         <input type="submit" value = "Subscribe"  />
+                 <%}%>
+             <%}%>
+         
+          </form>
+         
+          </div>
+          <br>
+
+          <% if(subscriptions != '[]') {%>
+            <% subscriptions = JSON.parse(subscriptions) %>
+            <% subscriptions.forEach(s=> { %>
+              <%if(s.MemberId == e._id) {%>
+                <% s.Movies.forEach(m=>{ %>
+                  <% var specificM = movies.filter(x=> x.name == m.movieName) %>
+                  <% specificM.forEach(mov =>{ %>
+                    
+                  <ul>
+                    <a href = "/membersRouter/chosenMovie/<%= mov.name%>/<%= mov.genres %>/ <%= mov.image.medium %> "><li><%= m.movieName %></li></a> , <%= m.date %>
+                  </ul>
+                  <%}) %>
+                <%})%>
+              <%}%>
+            <%})%>
+          <%}%>
+
+        </div>
+        <br><br>
+      <%}) %>
+        
+  </body>
+</html>
